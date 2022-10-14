@@ -19,16 +19,8 @@ const client = new DaprClient(daprHost, daprPort, CommunicationProtocolEnum.HTTP
 app.post('/book', async(req, res) => {
   // const newBook = new Book({...req.body});
 
-  await client.state.save(stateStoreName, [
-    {
-      key: "sylvin",
-      value:"amelia"
-    },
-    {
-      key: "gladstone",
-      value: "babu"
-    }
-  ]).then(() => {
+  await client.state.save(stateStoreName, req.body)
+  .then(() => {
     res.send('New Book created successfully!')
   }).catch((err) => {
     res.status(500).send('Internal Server Error!');
